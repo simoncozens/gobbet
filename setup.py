@@ -11,10 +11,10 @@ if os.path.isfile(requirementPath):
         install_requires = f.read().splitlines()
 
 config = {
-    'name': 'towncrier',
+    'name': 'gobbet',
     'author': 'Simon Cozens',
     'author_email': 'simon@simon-cozens.org',
-    'url': 'https://github.com/simoncozens/towncrier',
+    'url': 'https://github.com/simoncozens/gobbet',
     'description': 'Random news articles in any language',
     'long_description': open('README.md', 'r').read(),
     'long_description_content_type': 'text/markdown',
@@ -30,7 +30,7 @@ config = {
 
     ],
     'package_dir': {'':'Lib'},
-    'packages': ["towncrier"]
+    'packages': ["gobbet"]
 ,
 }
 

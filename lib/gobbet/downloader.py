@@ -7,7 +7,7 @@ url = "https://dumps.wikimedia.org/other/cirrussearch/current/"
 
 
 def news_dir():
-    newsdir = os.path.expanduser("~/.towncrier")
+    newsdir = os.path.expanduser("~/.gobbet")
     if not os.path.isdir(newsdir):
         os.mkdir(newsdir)
     return newsdir

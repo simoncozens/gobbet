@@ -3,7 +3,7 @@ import mwparserfromhell as mwp
 import tqdm
 from nltk.tokenize import wordpunct_tokenize
 import gzip
-from towncrier import Wordlist
+from gobbet import Wordlist
 import struct
 
 

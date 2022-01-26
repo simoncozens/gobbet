@@ -1,6 +1,6 @@
-from towncrier.wordlist import Wordlist
-from towncrier.downloader import news_dir, get_news_json
-from towncrier.parser import parse_dump
+from gobbet.wordlist import Wordlist
+from gobbet.downloader import news_dir, get_news_json
+from gobbet.parser import parse_dump
 import pickle
 import os
 from youseedee import parse_file_ranges
