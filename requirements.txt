@@ -2,3 +2,5 @@ tqdm
 mwparserfromhell
 orjson
 nltk
+htmllistparse
+youseedee
