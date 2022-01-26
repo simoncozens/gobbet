@@ -13,18 +13,16 @@ def news_dir():
     return newsdir
 
 
-def get_available():
+def get_available(which="wikinews"):
     cwd, listing = htmllistparse.fetch_listing(url, timeout=30)
     return {
-        l.name[0:2]: l.name
-        for l in listing
-        if "wikinews" in l.name and "content" in l.name
+        l.name[0:2]: l.name for l in listing if which in l.name and "content" in l.name
     }
 
 
-def download_news(lang="en"):
+def download_articles(lang="en", which="wikinews"):
     news_path = os.path.join(news_dir(), f"{lang}.json.gz")
-    available = get_available()
+    available = get_available(which)
     if lang not in available:
         raise ValueError("No news for language '%s'" % lang)
 
@@ -36,14 +34,16 @@ def download_news(lang="en"):
             f.write(response.content)
         else:
             dl = 0
-            with tqdm.tqdm(total=int(total_length), desc="downloading") as bar:
+            with tqdm.tqdm(
+                total=int(total_length), unit_scale=True, desc="downloading"
+            ) as bar:
                 for data in response.iter_content(chunk_size=4096):
                     bar.update(len(data))
                     f.write(data)
 
 
-def get_news_json(lang="en", force=False):
-    news_path = os.path.join(news_dir(), f"{lang}.json.gz")
-    if not os.path.isfile(news_path) or force:
-        download_news(lang)
-    return news_path
+def get_articles_json(lang="en", which="wikinews", force=False):
+    source_path = os.path.join(news_dir(), f"{lang}.json.gz")
+    if not os.path.isfile(source_path) or force:
+        download_articles(lang=lang, which=which)
+    return source_path

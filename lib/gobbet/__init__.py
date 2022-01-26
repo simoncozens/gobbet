@@ -1,5 +1,5 @@
 from gobbet.wordlist import Wordlist
-from gobbet.downloader import news_dir, get_news_json
+from gobbet.downloader import news_dir, get_articles_json
 from gobbet.parser import parse_dump
 import pickle
 import os
@@ -27,14 +27,17 @@ def filter_unicodes(items, codepoint_ranges):
 
 
 def get_news(lang="en", force=False):
-    news_path = os.path.join(news_dir(), f"{lang}.pickle")
-    if os.path.isfile(news_path) and not force:
-        with open(news_path, "rb") as pickle_file:
+    return get_source(lang, force, which="wikinews")
+
+def get_source(lang="en", force=False, which="wikinews"):
+    source_path = os.path.join(news_dir(), f"{lang}.pickle")
+    if os.path.isfile(source_path) and not force:
+        with open(source_path, "rb") as pickle_file:
             news = pickle.load(pickle_file)
         return news["words"], news["headlines"], news["paragraphs"]
 
-    news = parse_dump(get_news_json(lang, force))
+    news = parse_dump(get_articles_json(lang, force=force, which=which))
 
-    with open(news_path, "wb") as pickle_file:
+    with open(source_path, "wb") as pickle_file:
         pickle.dump(news, pickle_file)
     return news["words"], news["headlines"], news["paragraphs"]
