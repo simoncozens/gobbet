@@ -26,9 +26,9 @@ def parse_dump(filename):
     ) as bar:
         for line in f:
             bar.update(len(line))
-            article = orjson.loads(line)
-            if "index" in article:
+            if line.startswith('{"index":')
                 continue
+            article = orjson.loads(line)
             # Just store text here
             text = article["text"]
             this_words = filter(lambda x: len(x) > 2, wordpunct_tokenize(text))
