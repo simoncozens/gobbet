@@ -1,7 +1,7 @@
 from collections import Counter, defaultdict
 
 def pairwise(a):
-   return zip(a[::2], a[1::2])
+   return zip(a, a[1::])
 
 
 class Wordlist(Counter):
